@@ -113,10 +113,6 @@ public class LibraryTransactionManager {
      * - Гарантия последовательного выполнения транзакций
      * - Максимальная защита от конкурентных изменений
      *
-     * Компромиссы:
-     * - Strongest data integrity (Самая строгая целостность данных)
-     * - Потенциальное снижение производительности
-     * - Повышенная вероятность конфликтов транзакций
      */
     private static void demonstrateReaderUpdateTransaction(String readerEmail) {
         Connection connection = null;
