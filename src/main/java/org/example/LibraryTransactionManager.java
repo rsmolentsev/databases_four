@@ -11,7 +11,7 @@ public class LibraryTransactionManager {
 
     public static void main(String[] args) {
         // Демонстрация атомарной транзакции выдачи книг
-        demonstrateBookLoanTransaction("beemovie@yahoo.com", "Barry", "Benson","1984");
+        demonstrateBookLoanTransaction("beemovie@yahoo.com", "Barry", "Benson","The Scar (Shram)");
 
         // Демонстрация изолированной транзакции обновления информации о читателе
         demonstrateReaderUpdateTransaction("beemovie@yahoo.com");
@@ -106,13 +106,7 @@ public class LibraryTransactionManager {
     /**
      * Транзакция обновления данных читателя с высоким уровнем изоляции
      *
-     * Уровень изоляции: SERIALIZABLE
-     *
-     * Обоснование выбора уровня изоляции:
-     * - Предотвращение всех возможных аномалий параллельных транзакций
-     * (без Грязного, Неповторяющегося и Фантомного чтения)
-     * - Гарантия последовательного выполнения транзакций
-     * - Максимальная защита от конкурентных изменений
+     * Уровень изоляции: READ COMMITTED
      *
      */
     private static void demonstrateReaderUpdateTransaction(String readerEmail) {
@@ -122,7 +116,7 @@ public class LibraryTransactionManager {
             connection = DriverManager.getConnection(DB_URL, USERNAME, PASSWORD);
 
             // Устанавливаем максимальный уровень изоляции
-            connection.setTransactionIsolation(Connection.TRANSACTION_SERIALIZABLE);
+            connection.setTransactionIsolation(Connection.TRANSACTION_READ_COMMITTED);
             connection.setAutoCommit(false);
 
             try (PreparedStatement selectReader = connection.prepareStatement(
